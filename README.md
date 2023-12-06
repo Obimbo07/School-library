@@ -94,28 +94,12 @@ To run the project, execute the following command in your terminal:
 
 ```sh
 # Create a person
-person = Person.new(1, name: "Peter", age: 22)
-puts person.id  # Output: 1
-puts person.name  # Output: Peter
-puts person.age  # Output: 22
-puts person.can_use_services?  # Output: true
+
 
 # Create a student
-student = Student.new(2, "Science", name: "Lex", age: 15)
-puts student.id  # Output: 2
-puts student.name  # Output: Lex
-puts student.age  # Output: 15
-puts student.classroom  # Output: Science
-puts student.can_use_services?  # Output: true
-puts student.play_hooky  # Output: ¯\(ツ)/¯
+¯
 
 # Create a teacher
-teacher = Teacher.new(3, "Biology", name: "Martin", age: 42)
-puts teacher.id  # Output: 3
-puts teacher.name  # Output: Martin
-puts teacher.age  # Output: 42
-puts teacher.specialization  # Output: Biology
-puts teacher.can_use_services?  # Output: true
 
 ```
 
