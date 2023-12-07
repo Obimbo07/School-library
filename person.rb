@@ -22,10 +22,8 @@ class CapitalizeDecorator < NameableDecorator
 end
 
 class TrimmerDecorator < NameableDecorator
-  MAX_LENGTH = 10
-
   def correct_name
-    trimmed_name = @nameable.correct_name[0, MAX_LENGTH]
+    trimmed_name = @nameable.correct_name[0, 10]
     trimmed_name.sub!(/\s\w*\z/, '')
     trimmed_name
   end
