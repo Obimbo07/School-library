@@ -83,24 +83,7 @@ To run the project, execute the following command in your terminal:
 
 
 ```sh
-  irb
-```
-
-```sh
-  require "./person" # Output should be: true
-  require "./student" # Output should be: true
-  require "./teacher" # Output should be: true
-```
-
-```sh
-# Create a person
-
-
-# Create a student
-¯
-
-# Create a teacher
-
+  ruby main.rb
 ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
