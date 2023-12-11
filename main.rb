@@ -22,4 +22,29 @@ def prompt
   end
 end
 
+def call_option(option)
+  case option
+  when 1
+    list_books
+  when 2
+    list_people
+  when 3
+    add_person
+  when 4
+    add_book
+  when 5
+    add_rental
+  when 6
+    list_rental
+  else
+    puts 'Invalid option. Please choose an option 1 - 7 and try again.'
+  end
+end
+
+def main
+  app = App.new
+  app.run
+  prompt
+end
+
 main if __FILE__ == $PROGRAM_NAME
