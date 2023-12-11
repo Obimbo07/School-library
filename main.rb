@@ -44,7 +44,7 @@ end
 def main
   app = App.new
   app.run
-  
+  prompt
 end
 
 main if __FILE__ == $PROGRAM_NAME
