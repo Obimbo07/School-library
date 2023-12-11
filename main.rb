@@ -37,7 +37,7 @@ def call_option(option)
   when 6
     list_rental
   else
-    puts 'Invalid option. Please choose an option 1 - 7 and try again.'
+    puts 'Invalid option. Please choose an option 1 - 7  and try again.'
   end
 end
 
