@@ -4,6 +4,8 @@ require_relative 'person'
 require_relative 'rental'
 require_relative 'student'
 require_relative 'teacher'
+require_relative 'input'
+require_relative 'menu'
 
 class App
   attr_accessor :books, :people, :rentals
@@ -38,42 +40,32 @@ class App
 
   def add_student
     puts 'Age: '
-    age = gets.chomp.to_i
-
+    age = get_user_input_integer('')
     puts 'Name: '
-    name = gets.chomp.to_s
-
-    puts 'Has parent permission? [Y / N]: '
-    parent_permission = gets.chomp.to_s.capitalize
-
+    name = get_user_input('')
     puts 'Class:'
-    classroom = gets.chomp.to_s
+    classroom = get_user_input('')
+    parent_permission = obtain_parent_permission
 
-    if parent_permission =~ /^[Yy]/
-      @people.push(Student.new(classroom, age, name, parent_permission: true))
-    elsif parent_permission =~ /^[Nn]/
-      @people.push(Student.new(classroom, age, name, parent_permission: false))
-    else
-      puts "Invalid choice. Please enter a valid option. (#{parent_permission})"
-    end
+    @people.push(Student.new(classroom, age, name, parent_permission: parent_permission))
   end
 
   def add_teacher
     puts 'Age: '
-    age = gets.chomp.to_i
-
+    age = get_user_input_integer('')
     puts 'Name: '
-    name = gets.chomp.to_s
-
+    name = get_user_input('')
     puts 'Specialization: '
-    specialization = gets.chomp.to_s
+    specialization = get_user_input('')
 
-    @people.push(Teacher.new(specialization, age, name, parent_permission: true))
+    parent_permission = obtain_parent_permission
+
+    @people.push(Teacher.new(specialization, age, name, parent_permission: parent_permission))
   end
 
   def add_person
     puts 'Do you want to create a student (1) or a teacher (2)? [input the number]: '
-    person_type = gets.chomp.to_i
+    person_type = get_user_input_integer('')
 
     case person_type
     when 1
@@ -90,10 +82,9 @@ class App
 
   def add_book
     puts 'Title:'
-    title = gets.chomp.to_s
-
+    title = get_user_input('')
     puts 'Author:'
-    author = gets.chomp.to_s
+    author = get_user_input('')
 
     @books.push(Book.new(title, author))
   end
@@ -101,34 +92,47 @@ class App
   def add_rental
     puts 'Select a book from the following list by number:'
     list_books
-    book_idx = gets.chomp.to_i
+    book_idx = get_user_input_integer('')
 
-    if (0...@books.length).include?(book_idx)
-      book = @books[book_idx]
-    else
-      puts "Error adding a record. Book #{book_idx} doesn't exist"
-    end
+    book = find_item_by_index(book_idx, @books, 'Book')
+    return unless book
 
     puts 'Select a person from the following list by number (not id)'
     list_people
-    person_idx = gets.chomp.to_i
+    person_idx = get_user_input_integer('')
 
-    if (0...@people.length).include?(person_idx)
-      person = @people[person_idx]
-    else
-      puts "Error adding a record. Person #{person_idx} doesn't exist"
-    end
+    person = find_item_by_index(person_idx, @people, 'Person')
+    return unless person
 
     print 'Date: '
-    date = gets.chomp.to_s
+    date = get_user_input('')
 
-    @rentals.push(Rental.new(date, book, person))
-    puts 'Rental created successfully'
+    handle_rental_creation(date, book, person)
+  end
+
+  def handle_rental_creation(date, book, person)
+    rental = Rental.new(date, book, person)
+
+    if @rentals.length >= 20
+      puts 'Error: Maximum number of rentals reached (20). Cannot add more rentals.'
+    else
+      @rentals.push(rental)
+      puts 'Rental created successfully'
+    end
+  end
+
+  def find_item_by_index(index, collection, item_type)
+    if (0...collection.length).include?(index)
+      collection[index]
+    else
+      puts "Error adding a record. #{item_type} #{index} doesn't exist"
+      nil
+    end
   end
 
   def list_rental
     puts 'ID of person: '
-    id = gets.chomp.to_i
+    id = get_user_input_integer('')
     filtered = @rentals.find_all { |rental| rental.person.id == id }
 
     if filtered.empty?
@@ -139,6 +143,31 @@ class App
         puts "Date: #{rental.date}, Book \"#{rental.book.title}\" by #{rental.book.author}"
       end
     end
+  end
+
+  def quit_app
+    puts 'Thank you. See you soon'
+  end
+
+  private
+
+  def obtain_parent_permission
+    puts 'Has parent permission? [Y / N]: '
+    parent_permission = get_user_input('').capitalize
+
+    case parent_permission
+    when /^[Yy]/
+      true
+    when /^[Nn]/
+      false
+    else
+      puts "Invalid choice. Please enter a valid option. (#{parent_permission})"
+      obtain_parent_permission
+    end
+  end
+
+  def prompt
+    run_menu(self)
   end
 
   def run
