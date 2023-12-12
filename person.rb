@@ -28,6 +28,10 @@ class Person < Nameable
 
   private
 
+  def to_s
+    "[#{self.class.name}] Name: #{name}, ID: #{id}, Age: #{age}"
+  end
+
   def of_age?
     @age.to_i >= 18
   end

@@ -1,0 +1,7 @@
+[
+  "[Person] Name: Austin, ID: 119, Age: 20",
+  "[Student] Name: {:parent_permission=>true}, ID: 675, Age: 20, Classroom: 20",
+  "[Teacher] Name: evans, ID: 833, Age: 20, Specialization: work",
+  "[Student] Name: {:parent_permission=>false}, ID: 960, Age: 20, Classroom: 0bject",
+  "[Student] Name: {:parent_permission=>false}, ID: 473, Age: 20, Classroom: rr"
+]

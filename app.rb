@@ -6,6 +6,7 @@ require_relative 'student'
 require_relative 'teacher'
 require_relative 'input'
 require_relative 'menu'
+require_relative 'storage'
 
 class App
   attr_accessor :books, :people, :rentals
@@ -13,7 +14,7 @@ class App
   def initialize
     @books = []
     @rentals = []
-    @people = []
+    @people = Storage.read_data(Storage::PEOPLE_FILE_PATH, Person)
   end
 
   def list_books
@@ -33,13 +34,17 @@ class App
       prompt
     else
       @people.each_with_index do |person, i|
-        puts "#{i}) [#{person.class.name}] Name: #{person.name}, ID: #{person.id}, Age: #{person.age}"
+        if person
+          puts "#{i}) [#{person.class.name}] Name: #{person.name}, ID: #{person.id}, Age: #{person.age}"
+        else
+          puts "#{i}) [Person data is corrupted or incomplete]"
+        end
       end
     end
   end
 
   def add_student
-    puts 'Age: '
+    puts 'Age:'
     age = get_user_input_integer('')
     puts 'Name: '
     name = get_user_input('')
@@ -77,6 +82,7 @@ class App
       prompt
     end
 
+    Storage.write_people(@people)
     puts 'Person created successfully'
   end
 
@@ -146,6 +152,7 @@ class App
   end
 
   def quit_app
+    Storage.write_people(@people)
     puts 'Thank you. See you soon'
   end
 
