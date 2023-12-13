@@ -33,7 +33,9 @@ class Storage
     if File.exist?(file_path)
       json_data = File.read(file_path)
       data = JSON.parse(json_data, symbolize_names: true)
-      data.map { |entry| entity_class.new(entry[:age], entry[:name], parent_permission: entry[:parent_permission]) }
+      data.map do |entry|
+        entity_class.new(entry[:age], entry[:name], parent_permission: entry[:parent_permission])
+      end
     else
       []
     end
