@@ -19,8 +19,5 @@ def get_user_input(prompt)
 end
 
 def get_user_input_integer(prompt)
-
-
-  
   get_user_input(prompt).to_i
 end
