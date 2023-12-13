@@ -34,12 +34,17 @@ class Storage
       json_data = File.read(file_path)
       data = JSON.parse(json_data, symbolize_names: true)
       data.map do |entry|
-        entity_class.new(entry[:age], entry[:name], parent_permission: entry[:parent_permission])
+        puts "Entry contents: #{entry}"
+        puts "Entity class: #{entity_class}"
+  
+        entity_class.new(entry[:age].to_s, entry[:name].to_s, parent_permission: entry[:parent_permission])
       end
     else
       []
     end
   end
+  
+  
 
   def self.write_data(file_path, data)
     json_data = JSON.pretty_generate(data)
