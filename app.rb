@@ -12,18 +12,19 @@ class App
   attr_accessor :books, :people, :rentals
 
   def initialize
-    @books = []
-    @rentals = []
-    @people = Storage.read_data(Storage::PEOPLE_FILE_PATH, Person)
+    @books = Storage.read_books
+    @rentals = Storage.read_rentals
+    @people = Storage.read_people
   end
 
   def list_books
+    puts "DEBUG: Books in memory - #{@books}"
     if @books.empty?
       puts 'Currently, there are no books!'
       prompt
     else
       @books.each_with_index do |book, i|
-        puts "#{i}) Title: #{book.title}, Author: #{book.author}"
+        puts "#{i}) [#{book.class.name}] Title: #{book.title}, Author: #{book.author}"
       end
     end
   end
@@ -93,6 +94,7 @@ class App
     author = get_user_input('')
 
     @books.push(Book.new(title, author))
+    Storage.write_books(@books)
   end
 
   def add_rental
@@ -114,6 +116,7 @@ class App
     date = get_user_input('')
 
     handle_rental_creation(date, book, person)
+    Storage.write_rentals(@rentals)
   end
 
   def handle_rental_creation(date, book, person)

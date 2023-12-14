@@ -26,6 +26,18 @@ class Person < Nameable
     Rental.new(date, book, self)
   end
 
+  def to_h
+    {
+      class: self.class.name,
+      name: @name,
+      id: @id,
+      age: @age,
+      classroom: @classroom,
+      parent_permission: @parent_permission,
+      rentals: @rentals.map(&:to_h)
+    }
+  end
+
   private
 
   def of_age?
