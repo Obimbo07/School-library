@@ -66,7 +66,6 @@ class Storage
   end
 end
 
-# New LibraryManager class
 class LibraryManager
   class << self
     def write_people(people)

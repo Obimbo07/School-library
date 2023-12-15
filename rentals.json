@@ -1,3 +1,23 @@
 [
+  {
+    "date": "12-12-2020",
+    "book": {
+      "title": "horizon sphere",
+      "author": "morison josh",
+      "rentals": [
 
+      ]
+    },
+    "person": {
+      "class": "Person",
+      "name": "Unknown",
+      "id": 546,
+      "age": "[Teacher] Name: riya, ID: 333, Age: 22, Specialization: maths",
+      "classroom": null,
+      "parent_permission": true,
+      "rentals": [
+
+      ]
+    }
+  }
 ]
