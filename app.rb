@@ -18,7 +18,6 @@ class App
   end
 
   def list_books
-    puts "DEBUG: Books in memory - #{@books}"
     if @books.empty?
       puts 'Currently, there are no books!'
       prompt
@@ -54,7 +53,7 @@ class App
     parent_permission = obtain_parent_permission
 
     @people.push(Student.new(classroom, age, name, parent_permission: parent_permission))
-    LibraryManager.write_people(@people) # Use LibraryManager to write people to storage
+    LibraryManager.write_people(@people)
     puts 'Person created successfully'
   end
 
@@ -156,7 +155,7 @@ class App
   end
 
   def quit_app
-    LibraryManager.write_people(@people) # Use LibraryManager to write people to storage
+    LibraryManager.write_people(@people)
     puts 'Thank you. See you soon'
   end
 
