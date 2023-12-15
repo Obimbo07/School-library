@@ -115,9 +115,9 @@ class App
   
     print 'Date: '
     date = get_user_input('')
-  
+    LibraryManager.write_rentals(rentals)
     handle_rental_creation(date, book, person)
-  
+
   end
   
   def handle_rental_creation(date, book, person)
@@ -127,6 +127,7 @@ class App
       puts 'Error: Maximum number of rentals reached (20). Cannot add more rentals.'
     else
       @rentals.push(rental)
+      puts "DEBUG: rentals in memory - #{rental}"
       puts 'Rental created successfully'
     end
   end
