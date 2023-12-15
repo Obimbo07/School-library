@@ -1,3 +1,4 @@
+# book.rb
 class Book
   attr_accessor :title, :author
   attr_reader :rentals
@@ -15,7 +16,8 @@ class Book
   def to_h
     {
       title: @title,
-      author: @author
+      author: @author,
+      rentals: @rentals.map(&:to_h)
     }
   end
 end

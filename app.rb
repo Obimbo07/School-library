@@ -54,6 +54,8 @@ class App
     parent_permission = obtain_parent_permission
 
     @people.push(Student.new(classroom, age, name, parent_permission: parent_permission))
+    LibraryManager.write_people(@people) # Use LibraryManager to write people to storage
+    puts 'Person created successfully'
   end
 
   def add_teacher
@@ -67,6 +69,8 @@ class App
     parent_permission = obtain_parent_permission
 
     @people.push(Teacher.new(specialization, age, name, parent_permission: parent_permission))
+    LibraryManager.write_people(@people) # Use LibraryManager to write people to storage
+    puts 'Person created successfully'
   end
 
   def add_person
@@ -82,9 +86,6 @@ class App
       puts 'Invalid choice. Please choose option 1 or option 2.'
       prompt
     end
-
-    Storage.write_people(@people)
-    puts 'Person created successfully'
   end
 
   def add_book
@@ -94,34 +95,34 @@ class App
     author = get_user_input('')
 
     @books.push(Book.new(title, author))
-    Storage.write_books(@books)
+    LibraryManager.write_books(@books) # Use LibraryManager to write books to storage
   end
 
   def add_rental
     puts 'Select a book from the following list by number:'
     list_books
     book_idx = get_user_input_integer('')
-
+  
     book = find_item_by_index(book_idx, @books, 'Book')
     return unless book
-
+  
     puts 'Select a person from the following list by number (not id)'
     list_people
     person_idx = get_user_input_integer('')
-
+  
     person = find_item_by_index(person_idx, @people, 'Person')
     return unless person
-
+  
     print 'Date: '
     date = get_user_input('')
-
+  
     handle_rental_creation(date, book, person)
-    Storage.write_rentals(@rentals)
+  
   end
-
+  
   def handle_rental_creation(date, book, person)
     rental = Rental.new(date, book, person)
-
+  
     if @rentals.length >= 20
       puts 'Error: Maximum number of rentals reached (20). Cannot add more rentals.'
     else
@@ -129,6 +130,7 @@ class App
       puts 'Rental created successfully'
     end
   end
+  
 
   def find_item_by_index(index, collection, item_type)
     if (0...collection.length).include?(index)
@@ -155,7 +157,7 @@ class App
   end
 
   def quit_app
-    Storage.write_people(@people)
+    LibraryManager.write_people(@people) # Use LibraryManager to write people to storage
     puts 'Thank you. See you soon'
   end
 

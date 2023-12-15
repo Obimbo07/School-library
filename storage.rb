@@ -65,3 +65,20 @@ class Storage
     end
   end
 end
+
+# New LibraryManager class
+class LibraryManager
+  class << self
+    def write_people(people)
+      Storage.write_people(people)
+    end
+
+    def write_books(books)
+      Storage.write_books(books)
+    end
+
+    def write_rentals(rentals)
+      Storage.write_rentals(rentals)
+    end
+  end
+end

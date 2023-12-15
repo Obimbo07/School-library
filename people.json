@@ -1,5 +1,4 @@
 [
-  "#<Person:0x00000134629093d0>",
-  "#<Person:0x0000013462909380>",
-  "[Teacher] Name: 40, ID: 790, Age: 0, Specialization: 70"
+  "[Student] Name: faiz, ID: 444, Age: 22, Classroom: 6",
+  "[Student] Name: rose, ID: 156, Age: 34, Classroom: 7"
 ]
