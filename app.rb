@@ -69,7 +69,7 @@ class App
     parent_permission = obtain_parent_permission
 
     @people.push(Teacher.new(specialization, age, name, parent_permission: parent_permission))
-    LibraryManager.write_people(@people) 
+    LibraryManager.write_people(@people)
     puts 'Person created successfully'
   end
 
